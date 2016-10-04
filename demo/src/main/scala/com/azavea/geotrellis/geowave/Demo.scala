@@ -73,14 +73,9 @@ object Demo {
     logger.info("Reading starting layer from HDFS")
     val rdd1 = {
       val inLayerId = LayerId(layerName, zoomLevel)
-      val subset = Extent(-87.1875, 34.43409789359469, -78.15673828125, 39.87601941962116)
 
-      require(HadoopAttributeStore(hdfsUri).layerExists(inLayerId))
-      HadoopLayerReader(hdfsUri)
-        // .read[SpatialKey, Tile, TileLayerMetadata[SpatialKey]](inLayerId)
-        .query[SpatialKey, Tile, TileLayerMetadata[SpatialKey]](inLayerId)
-        .where(Intersects(subset))
-        .result
+      require(HadoopAttributeStore(CACHE_DIR).layerExists(inLayerId))
+      HadoopLayerReader(CACHE_DIR).read[SpatialKey, Tile, TileLayerMetadata[SpatialKey]](inLayerId)
     }
 
     logger.info("Writing raw layer into GeoWave")
