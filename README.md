@@ -54,11 +54,7 @@ spark-submit \
 
 ## Building The Demo Code ##
 
-This demo requires the code found in the GeoTrellis [GeoWave subproject pull request](https://github.com/geotrellis/geotrellis/pull/1542).
-At time of writing, that pull request has not been merged.
-If that is the case at the time of reading, then that branch must be pulled down and published locally, otherwise an appropriate released or pre-release version of GeoTrellis can be used.
-
-It is also required that `sbt` is installed.
+It is required that `sbt` is installed.
 
 Given those dependencies, the code can be built by typing:
 ```bash
@@ -83,7 +79,7 @@ docker run -it --rm --net=geowave -v $HOME/local/spark-2.0.0-bin-hadoop2.7:/spar
 ```
 then running the demo ingest within that container
 ```bash
-spark-submit \
+/spark/bin/spark-submit \
    --master='local[*]' --conf 'spark.driver.memory=32G' \
    --class com.azavea.geotrellis.geowave.Demo /jars/demo-assembly-0.jar \
    leader instance root password gwRaster 'file:/tmp/catalog-cache' ned 0
