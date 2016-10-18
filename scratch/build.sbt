@@ -1,4 +1,5 @@
-name := "demo"
+name := "scratch"
+
 libraryDependencies ++= Seq(
   "com.azavea.geotrellis" %% "geotrellis-accumulo" % "1.0.0-SNAPSHOT",
   "com.azavea.geotrellis" %% "geotrellis-geotools" % "1.0.0-SNAPSHOT",
@@ -12,6 +13,8 @@ libraryDependencies ++= Seq(
   "org.apache.hadoop" % "hadoop-client" % Version.hadoop % "provided",
   "org.apache.spark" %% "spark-core" % Version.spark % "provided"
 )
+
+resourceDirectory in Compile := baseDirectory.value / "resources"
 
 fork in Test := false
 parallelExecution in Test := false

@@ -1,16 +1,6 @@
 import sbtassembly.PathList
 
-val generalDeps = Seq(
-  "org.apache.accumulo" % "accumulo-core" % "1.7.1"
-    exclude("org.jboss.netty", "netty")
-    exclude("org.apache.hadoop", "hadoop-client"),
-  "org.apache.hadoop" % "hadoop-client" % "2.6.2"
-)
-
-val extraResolvers = Seq(
-  Resolver.mavenLocal,
-  "osgeo" at "http://download.osgeo.org/webdav/geotools/"
-)
+val generalDeps = Seq("org.apache.hadoop" % "hadoop-client" % "2.6.2")
 
 lazy val commonSettings = Seq(
   organization := "com.example",
@@ -48,7 +38,6 @@ lazy val root = (project in file("."))
   .settings(commonSettings: _*)
   .settings(libraryDependencies ++= generalDeps)
 
-lazy val demo = (project in file("demo"))
+lazy val scratch = (project in file("scratch"))
   .dependsOn(root)
   .settings(commonSettings: _*)
-  .settings(resolvers ++= extraResolvers)
