@@ -1,9 +1,9 @@
 [{
-    "format": "geotiff",
-    "name": "ned",
+    "format": "multiband-geotiff",
+    "name": "iraq",
     "cache": "NONE",
     "backend": {
         "type": "hadoop",
-        "path": "file:///tmp/NED"
+        "path": "file:///tmp/iraq"
     }
 }]
