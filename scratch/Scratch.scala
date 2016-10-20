@@ -60,11 +60,15 @@ object Scratch {
       HadoopLayerReader(hdfsUri).read[SpatialKey, MultibandTile, TileLayerMetadata[SpatialKey]](inLayerId)
     }
 
-    logger.info("Equalizing histogram")
+    logger.info("Histogram Equalization")
     val rdd1 = rdd0.equalize
 
-    logger.info("Dumping equalized layer to disk")
-    dump(rdd1, "iraq")
+    logger.info("Sigmoidal contrast")
+    val rdd2 = rdd0.sigmoidal(.5, 10)
+
+    logger.info("Dumping layers to disk")
+    dump(rdd1, "equal")
+    dump(rdd2, "sigmoidal")
   }
 
 }
