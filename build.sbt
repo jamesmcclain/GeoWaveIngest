@@ -41,3 +41,7 @@ lazy val root = (project in file("."))
 lazy val scratch = (project in file("scratch"))
   .dependsOn(root)
   .settings(commonSettings: _*)
+
+lazy val resample = (project in file("resample"))
+  .dependsOn(root)
+  .settings(commonSettings: _*)

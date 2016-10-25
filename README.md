@@ -14,5 +14,5 @@ $SPARK_HOME/bin/spark-submit \
    --class com.azavea.geotrellis.scratch.Scratch \
    --master 'local[*]' \
    --driver-memory 16G \
-   scratch/target/scala-2.11/scratch-assembly-0.jar /tmp/catalog iraq 0
+   scratch/target/scala-2.11/scratch-assembly-0.jar /tmp/catalog iraq 12
 ```
