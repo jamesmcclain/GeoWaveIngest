@@ -64,9 +64,10 @@ object Scratch {
     val rdd1 = rdd0.equalize
 
     logger.info("Sigmoidal contrast")
-    val rdd2 = rdd0.sigmoidal(.5, 10)
+    val rdd2 = ContextRDD(rdd0.sigmoidal(.5, 10), rdd0.metadata)
 
     logger.info("Dumping layers to disk")
+    dump(rdd0, "raw")
     dump(rdd1, "equal")
     dump(rdd2, "sigmoidal")
   }
