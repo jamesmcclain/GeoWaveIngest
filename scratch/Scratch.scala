@@ -7,6 +7,7 @@ import geotrellis.spark._
 import geotrellis.spark.equalization.RDDHistogramEqualization
 import geotrellis.spark.io._
 import geotrellis.spark.io.hadoop._
+import geotrellis.raster.histogram.StreamingHistogram
 
 import org.apache.log4j.Logger
 import org.apache.spark.rdd.RDD
@@ -34,6 +35,16 @@ object Scratch {
       writer.write(gc, Array.empty[GeneralParameterValue])
     })
   }
+
+  /**
+    * Compute the histograms of the bands of an RDD of MultibandTile
+    * objects.
+    */
+  def histograms(rdd: RDD[(SpatialKey, MultibandTile)]): Seq[StreamingHistogram] =
+    (0 until 3).map({ i =>
+      rdd.map({ case (_, v) => StreamingHistogram.fromTile(v.bands(i), 1<<8) })
+        .reduce(_ + _)
+    })
 
   /**
     * MAIN
@@ -66,10 +77,18 @@ object Scratch {
     logger.info("Sigmoidal contrast")
     val rdd2 = ContextRDD(rdd0.sigmoidal(.5, 10), rdd0.metadata)
 
+    logger.info("Histogram matching")
+    val histograms1 = histograms(rdd1)
+    val histograms2 = histograms(rdd2)
+    val rdd3 = ContextRDD(rdd0.matchHistogram(histograms1), rdd0.metadata)
+    val rdd4 = ContextRDD(rdd0.matchHistogram(histograms2), rdd0.metadata)
+
     logger.info("Dumping layers to disk")
     dump(rdd0, "raw")
     dump(rdd1, "equal")
     dump(rdd2, "sigmoidal")
+    dump(rdd3, "matching-equal")
+    dump(rdd4, "matching-sigmoidal")
   }
 
 }
