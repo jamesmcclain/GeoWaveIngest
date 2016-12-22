@@ -70,7 +70,7 @@ To run the demo comfortably, one probably needs at least 32 GB of RAM.
 The Accumulo container can be started by typing the following:
 ```bash
 docker network create -d bridge geowave
-docker run -it --rm -p 50095:50095 --net=geowave --hostname leader --name leader jamesmcclain/geowave:c127c16
+docker run -it --rm -p 50095:50095 --net=geowave --hostname leader --name leader jamesmcclain/geowave:c790acb
 ```
 
 The ingest into GeoWave can then be performed by starting another container for the demo ingest code:
@@ -87,7 +87,7 @@ then running the demo ingest within that container
 
 To view the layers, start the GeoServer container
 ```bash
-docker run -it --rm -p 8080:8080 --net=geowave jamesmcclain/geoserver:c127c16
+docker run -it --rm -p 8080:8080 --net=geowave jamesmcclain/geoserver:c790acb
 ```
 and make use of the GeoWave raster plugin for GeoServer.
 
@@ -140,7 +140,7 @@ Once it is complete, you can now start GeoServer.
 (Note that another copy of GeoServer is already running, but for whatever reason I have not had success using it for this purpose, so you I suggest that you start a different one using the command below.)
 
 ```bash
-docker run -it --rm -p 8086:8080 jamesmcclain/geoserver:c127c16
+docker run -it --rm -p 8086:8080 jamesmcclain/geoserver:c790acb
 ```
 Once the GeoServer container is up, you will need to `exec` into it and add an appropriate configuration file for the GeoWave raster plugin:
 ```bash
